@@ -33,7 +33,7 @@ public class WatchrService {
         Watchr.WatchrBuilder builder = Watchr.builder();
         builder.name(req.name());
         builder.url(req.url());
-        builder.intervalSecond(req.intervalSeconds() == null?60:req.intervalSeconds());
+        builder.intervalSecond(req.intervalSecond() == null?60:req.intervalSecond());
 
         Watchr w = builder.build();
 
