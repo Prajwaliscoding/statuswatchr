@@ -48,7 +48,7 @@ statuswatchr
 │   │   │       ├── service        # Business logic
 │   │   │       ├── repository     # Database access
 │   │   │       ├── model          # JPA entities
-│   │   │       └── ServiceMonitorApplication.java
+│   │   │       └── StatusWatchrApplication.java
 │   │   └── resources
 │   │       ├── application.properties
 │   │       └── application-local.properties  # ignored by git
