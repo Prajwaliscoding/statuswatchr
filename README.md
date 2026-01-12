@@ -45,6 +45,7 @@ statuswatchr
 │   │   ├── java
 │   │   │   └── com.statuswatchr.statuswatchr
 │   │   │       ├── controller     # REST controllers
+│   │   │       ├── dto            # Data transfer object 
 │   │   │       ├── service        # Business logic
 │   │   │       ├── repository     # Database access
 │   │   │       ├── model          # JPA entities
