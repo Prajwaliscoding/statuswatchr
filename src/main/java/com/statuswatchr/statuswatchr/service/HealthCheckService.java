@@ -1,12 +1,14 @@
 package com.statuswatchr.statuswatchr.service;
 
 import com.statuswatchr.statuswatchr.model.Status;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.HttpURLConnection;
 import java.net.URI;
 
 @Service
+@RequiredArgsConstructor
 public class HealthCheckService {
 
     public record CheckResult(Status status, String error, Integer httpCode){}
