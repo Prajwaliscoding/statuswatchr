@@ -16,6 +16,7 @@ public class Incident {
     private Long id;
 
     @ManyToOne(optional = false)
+    @JoinTable(name = "watchr_id")
     private Watchr watchr;
 
     @Column(nullable = false)
