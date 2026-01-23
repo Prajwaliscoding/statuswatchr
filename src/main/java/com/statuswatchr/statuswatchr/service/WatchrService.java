@@ -15,8 +15,8 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 public class WatchrService {
 
-    private final WatchrRepository repo;
-    private final IncidentRepository incidentRepo;  //sth
+    private final WatchrRepository watchrRepo;
+    private final IncidentRepository incidentRepo;
 
 
     private WatchrResponse toResponse(Watchr w){
@@ -40,19 +40,19 @@ public class WatchrService {
 
         Watchr w = builder.build();
 
-        Watchr saved = repo.save(w);
+        Watchr saved = watchrRepo.save(w);
         return toResponse(saved);
     }
 
     public List<WatchrResponse> getAll(){
-        List<Watchr> watchrs = repo.findAll();
+        List<Watchr> watchrs = watchrRepo.findAll();
         Stream<Watchr> stream = watchrs.stream();
         Stream<WatchrResponse> mapped = stream.map(this::toResponse);
         return mapped.toList();
     }
 
     public WatchrResponse getById(Long id){
-        Watchr watchr = repo.findById(id).orElseThrow(() -> new IllegalArgumentException("Watchr nor found that is " + id));
+        Watchr watchr = watchrRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Watchr nor found that is " + id));
         return toResponse(watchr);
     }
 }
