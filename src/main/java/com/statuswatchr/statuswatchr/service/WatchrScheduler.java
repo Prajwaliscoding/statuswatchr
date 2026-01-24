@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -41,9 +42,16 @@ public class WatchrScheduler {
 
                 incidentRepo.save(incident);
             }
-
-
-            w.setStatus(result.status());
+            if(previous == Status.DOWN && current !=Status.DOWN){
+                // Resolve the incident
+                Optional<Incident> opt = incidentRepo.findFirstByWatchrAndResolvedAtIsNull(w);
+                if( opt.isPresent() ){
+                    Incident incident = opt.get();   // get returns the Incident type of object
+                    incident.setResolvedAt(Instant.now());
+                    incidentRepo.save(incident);
+                }
+            }
+            w.setStatus(current);
             w.setLastCheckedAt(now);
             w.setLastError(result.error());
         }
