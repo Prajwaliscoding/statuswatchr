@@ -43,10 +43,9 @@ public class WatchrScheduler {
                 incidentRepo.save(incident);
             }
             if(previous == Status.DOWN && current !=Status.DOWN){
-                // Resolve the incident
                 Optional<Incident> opt = incidentRepo.findFirstByWatchrAndResolvedAtIsNull(w);
                 if( opt.isPresent() ){
-                    Incident incident = opt.get();   // get returns the Incident type of object
+                    Incident incident = opt.get();
                     incident.setResolvedAt(Instant.now());
                     incidentRepo.save(incident);
                 }
