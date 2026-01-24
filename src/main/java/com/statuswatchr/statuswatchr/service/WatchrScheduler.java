@@ -1,5 +1,8 @@
 package com.statuswatchr.statuswatchr.service;
+import com.statuswatchr.statuswatchr.model.Incident;
+import com.statuswatchr.statuswatchr.model.Status;
 import com.statuswatchr.statuswatchr.model.Watchr;
+import com.statuswatchr.statuswatchr.repository.IncidentRepository;
 import com.statuswatchr.statuswatchr.repository.WatchrRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WatchrScheduler {
 
+    private final IncidentRepository incidentRepo;   // for handling the incidents table.
+
+
     private final HealthCheckService checker;
     private final WatchrRepository repo;
 
@@ -22,8 +28,26 @@ public class WatchrScheduler {
         Instant now = Instant.now();
 
         for(Watchr w : watchrs) {
+
+            // getting the previous status
+            Status previous = w.getStatus();
+
             if(!isDue(w,now)) continue;
             var result = checker.check(w.getUrl());
+
+            // getting the current status
+            Status current = result.status();
+
+            if(previous != Status.DOWN && current == Status.DOWN){
+                // Start incident in our incident table
+                Incident incident = Incident.builder()
+                        .watchr(w)
+                        .errorMessage(result.error())
+                        .startedAt(Instant.now())
+                        .build();
+
+                incidentRepo.save(incident);   // telling the repo to save this object made by builder
+            }
 
             w.setStatus(result.status());
             w.setLastCheckedAt(now);
