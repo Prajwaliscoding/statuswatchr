@@ -3,7 +3,6 @@ package com.statuswatchr.statuswatchr.service;
 import com.statuswatchr.statuswatchr.dto.WatchrCreateRequest;
 import com.statuswatchr.statuswatchr.dto.WatchrResponse;
 import com.statuswatchr.statuswatchr.model.Watchr;
-import com.statuswatchr.statuswatchr.repository.IncidentRepository;
 import com.statuswatchr.statuswatchr.repository.WatchrRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.util.stream.Stream;
 public class WatchrService {
 
     private final WatchrRepository repo;
-
 
     private WatchrResponse toResponse(Watchr w){
         return new WatchrResponse (
