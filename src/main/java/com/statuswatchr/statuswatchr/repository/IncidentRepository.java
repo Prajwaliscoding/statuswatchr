@@ -11,6 +11,16 @@ import java.util.Optional;
 public interface IncidentRepository extends JpaRepository<Incident, Long> {
     Optional<Incident> findFirstByWatchrAndResolvedAtIsNull(Watchr watchr);
 
-    Page<Incident> findByResolvedAtIsNull(Pageable pageable);
-
+    Page<Incident> findByResolvedAtIsNull(Pageable pageable);  // “Give me all incidents that are still open.”
+    Page<Incident> findByWatchr(Watchr watchr, Pageable pageable);   // “Give me all incidents for this one Watchr.”
+    Page<Incident> findByWatchrAndResolvedAtIsNull(Watchr watchr, Pageable pageable);
+    // “Give me the current open incident for this Watchr.”
 }
+
+
+
+
+
+
+
+
