@@ -34,4 +34,6 @@ public class WatchrController {
     public WatchrResponse getById(@PathVariable Long id){
         return service.getById(id);
     }
+
+
 }
