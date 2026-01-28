@@ -35,16 +35,17 @@ public class IncidentService {
 
     public Page<IncidentResponse> getOpen(Pageable pageable) {
         return incidentRepo.findByResolvedAtIsNull(pageable).map(this::toResponse);
-        // findByResolvedAtIsNull() method is made in IncidentRepository. This query written in method form.
     }
+
     public Page<IncidentResponse> getAllPage(Pageable pageable) {
         return incidentRepo.findAll(pageable).map(this::toResponse);
     }
+
     public Page<IncidentResponse> getByWatchr(Long id, boolean open, Pageable pageable) {
         Watchr w = watchrRepo.findById(id)
                 .orElseThrow(()->new RuntimeException("Watchr not found: "+id));
 
-        if(open){     // if (open == true)
+        if(open){
             return incidentRepo.findByWatchrAndResolvedAtIsNull(w, pageable).map(this::toResponse);
         }
         return incidentRepo.findByWatchr(w,pageable).map(this::toResponse);
