@@ -17,7 +17,7 @@ public class IncidentController {
 
     private final IncidentService incidentService;
 
-    @GetMapping
+    @GetMapping("/list")
     public List<IncidentResponse> getAll(){
         return incidentService.getAll();
     }
