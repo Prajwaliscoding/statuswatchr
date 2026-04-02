@@ -1,4 +1,4 @@
-import axios from "axios";                     // HTTP requesting
+import axios from "axios";                       // HTTP requesting
 import type { Watchr } from "../types/watchr";
 
 const API = axios.create({
